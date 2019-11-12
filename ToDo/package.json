@@ -1,0 +1,45 @@
+{
+  "name": "webpack",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "@angular/common": "^8.2.13",
+    "@angular/compiler": "^8.2.13",
+    "@angular/compiler-cli": "^8.2.13",
+    "@angular/core": "^8.2.13",
+    "@angular/platform-browser": "^8.2.13",
+    "@angular/platform-browser-dynamic": "^8.2.13",
+    "copy-webpack-plugin": "^5.0.5",
+    "core-js": "^3.4.1",
+    "ejs": "^2.7.1",
+    "express": "^4.17.1",
+    "rxjs": "^6.5.3",
+    "script-ext-html-webpack-plugin": "^2.1.4",
+    "typescript": "^3.1.6",
+    "webpack": "^4.40.2",
+    "webpack-cli": "^3.3.9",
+    "zone.js": "^0.10.2"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.6.0",
+    "@babel/preset-env": "^7.6.0",
+    "@types/core-js": "~2.5",
+    "@types/node": "~10.12",
+    "babel-core": "^6.26.3",
+    "babel-loader": "^8.0.6",
+    "babel-preset-env": "^1.7.0",
+    "file-loader": "^4.2.0",
+    "html-loader": "^0.5.5",
+    "html-webpack-plugin": "^3.2.0",
+    "typescript": "^3.4.5",
+    "webpack-dev-server": "^3.9.0"
+  },
+  "scripts": {
+    "build": "webpack",
+    "start": "node server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
