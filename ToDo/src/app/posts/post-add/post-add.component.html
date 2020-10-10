@@ -1,0 +1,56 @@
+<mat-accordion>
+	<mat-expansion-panel>
+		<mat-expansion-panel-header (click)="onFormExpansion()">
+			<mat-panel-title>
+				New Post
+			</mat-panel-title>
+			<mat-panel-description>
+				Type anything you're planning to achieve here!
+			</mat-panel-description>
+		</mat-expansion-panel-header>
+
+		<form [formGroup]="newPostForm" (ngSubmit)="onSubmit()">
+			<div class="goal">
+				<mat-form-field>
+					<mat-label>Goal</mat-label>
+					<input matInput formControlName="title" />
+				</mat-form-field>
+
+				<mat-form-field>
+					<mat-label>Deadline</mat-label>
+					<input
+						matInput
+						[matDatepicker]="picker"
+						formControlName="deadlineDate"
+					/>
+					<mat-datepicker-toggle
+						matSuffix
+						[for]="picker"
+					></mat-datepicker-toggle>
+					<mat-datepicker #picker></mat-datepicker>
+				</mat-form-field>
+			</div>
+
+			<mat-form-field>
+				<mat-label>Description</mat-label>
+				<textarea
+					matInput
+					rows="3"
+					formControlName="description"
+				></textarea>
+			</mat-form-field>
+
+			<mat-action-row>
+				<button
+					mat-button
+					type="button"
+					(click)="onSubmit()"
+					[disabled]="!newPostForm.valid || isLoading"
+				>
+					SAVE
+					<mat-spinner *ngIf="isLoading" diameter="30"></mat-spinner>
+				</button>
+			</mat-action-row>
+		</form>
+	</mat-expansion-panel>
+</mat-accordion>

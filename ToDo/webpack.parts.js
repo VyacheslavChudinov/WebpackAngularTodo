@@ -1,6 +1,7 @@
 const path = require("path");
 const PurifyCSSPlugin = require("purifycss-webpack");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 exports.clean = path => ({
     plugins: [new CleanWebpackPlugin()],
@@ -20,11 +21,11 @@ exports.loadImages = ({ include, exclude, options } = {}) => ({
     module: {
         rules: [
             {
-                test: /\.(png|jpg)$/,
+                test: /\.(png|jpe?g|gif|svg|woff|woff2|ttf|eot|ico)$/,
                 include,
                 exclude,
                 use: {
-                    loader: "url-loader",
+                    loader: "file-loader?name=assets/[name].[hash].[ext]",
                     options,
                 },
             },
@@ -32,13 +33,33 @@ exports.loadImages = ({ include, exclude, options } = {}) => ({
     },
 });
 
-exports.loadCSS = ({ include, exclude } = {}) => ({
+exports.loadCSS = () => ({
     module: {
         rules: [
+            {
+                test: /\.s[ac]ss$/i,
+                use: [
+                    'to-string-loader',         
+                    { 
+                        loader: 'css-loader', 
+                        options: { 
+                            sourceMap: true 
+                        } 
+                    },
+                    { 
+                        loader: 'sass-loader', 
+                        options: { 
+                            sourceMap: true 
+                        } 
+                    }
+                ],
+                include: path.resolve(__dirname, 'src/app')
+            },
             {
                 test: /\.css$/,
                 exclude: path.resolve(__dirname, 'src/app'),
                 use: [
+                    MiniCssExtractPlugin.loader,
                     "css-loader"
                 ]
             },
@@ -48,7 +69,7 @@ exports.loadCSS = ({ include, exclude } = {}) => ({
                 loader: 'raw-loader'
             }
         ],
-    },
+    }
 });
 
 exports.extractCSS = () => {
@@ -93,7 +114,7 @@ exports.loadJavaScript = ({ include, exclude } = {}) => ({
                 test: /\.js$/,
                 include,
                 exclude,
-                use: "babel-loader",
+                use: "babel-loader"
             },
             {
                 test: /\.ts$/,

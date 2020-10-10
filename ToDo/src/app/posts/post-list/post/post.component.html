@@ -1,0 +1,40 @@
+<mat-card
+	[ngClass]="{
+		'deadline-is-near': deadlineIsNear,
+		'deadline-has-come': deadlineHasCome,
+		'deadline-is-far': deadlineIsFar
+	}"
+>
+	<mat-spinner *ngIf="isLoading" diameter="40"></mat-spinner>
+	<mat-card-title-group *ngIf="!isEditMode">
+		<mat-card-title
+			>{{ post.title }}
+			<div>
+				<button
+					mat-button
+					[matMenuTriggerFor]="menu"
+					mat-icon-button
+					color="primary"
+					aria-label="Edit button"
+				>
+					<mat-icon>menu</mat-icon>
+				</button>
+				<mat-menu #menu="matMenu">
+					<button (click)="onEdit()" mat-menu-item>Edit</button>
+					<button (click)="onDelete()" mat-menu-item>Delete</button>
+				</mat-menu>
+			</div>
+		</mat-card-title>
+		<mat-card-subtitle>{{ post.description }} </mat-card-subtitle>
+		<mat-card-subtitle class="deadline"
+			>{{ post.deadlineDate | date: 'mediumDate' }}
+		</mat-card-subtitle>
+	</mat-card-title-group>
+
+	<post-edit
+		*ngIf="isEditMode"
+		(postUpdated)="onPostUpdated()"
+		[userId]="userId"
+		[postToEdit]="post"
+	></post-edit>
+</mat-card>

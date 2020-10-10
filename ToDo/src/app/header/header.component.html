@@ -1,0 +1,9 @@
+<div class="header">
+	<button *ngIf="isLoggedIn" mat-button routerLink="/posts" routerLinkActive="active">Posts</button>
+
+	<div class="auth">
+        <button *ngIf="!isLoggedIn" mat-button routerLink="/login" routerLinkActive="active">Login</button>
+        <button *ngIf="!isLoggedIn" mat-button routerLink="/register" routerLinkActive="active">Register</button>
+		<button *ngIf="isLoggedIn" mat-button (click)="onLogout()">Logout</button>
+	</div>
+</div>

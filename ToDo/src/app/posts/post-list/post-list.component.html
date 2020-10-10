@@ -1,0 +1,7 @@
+<div class="posts">
+	<div *ngFor="let post of postList | sortPostList">
+		<post [userId]="userId" [post]="post"></post>
+    </div>
+    
+<mat-card class="empty-list-message" *ngIf="!postList || !postList.length">No goals so far... Lets add some!</mat-card>
+</div>

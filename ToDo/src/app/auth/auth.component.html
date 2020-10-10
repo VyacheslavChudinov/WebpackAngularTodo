@@ -1,0 +1,35 @@
+<mat-card class="error" *ngIf="error">{{ error }}</mat-card>
+<form (ngSubmit)="onSubmit()" #authForm="ngForm" class="auth-form">
+	<mat-form-field class="full-width">
+		<mat-label>User Name</mat-label>
+		<input matInput type="text" name="username" ngModel required />
+	</mat-form-field>
+
+	<mat-form-field class="xample-full-width">
+		<mat-label>Password</mat-label>
+		<input
+			matInput
+			[type]="isPasswordHidden ? 'password' : 'text'"
+			name="password"
+			ngModel
+			required
+			password
+		/>
+		<button
+			type="button"
+			mat-icon-button
+			matSuffix
+			(click)="isPasswordHidden = !isPasswordHidden"
+			[attr.aria-label]="'isPasswordHidden password'"
+			[attr.aria-pressed]="isPasswordHidden"
+		>
+			<mat-icon>{{
+				isPasswordHidden ? 'visibility_off' : 'visibility'
+			}}</mat-icon>
+		</button>
+	</mat-form-field>
+
+	<button mat-raised-button type="submit" [disabled]="!authForm.valid">
+		{{ isLoginFlow ? 'Login' : 'Register' }}
+	</button>
+</form>

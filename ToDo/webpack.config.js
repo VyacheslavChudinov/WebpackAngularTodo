@@ -4,6 +4,7 @@ const parts = require("./webpack.parts");
 const merge = require("webpack-merge");
 const path = require("path");
 const glob = require("glob");
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 const PATHS = {
     app: path.join(__dirname, "src"),
@@ -22,13 +23,17 @@ const commonConfig = merge([
 
         plugins: [
             new HtmlWebpackPlugin({
-                template: 'src/index.html'
+                template: './src/index.html'
             }),
             new AngularCompilerPlugin({
                 tsConfigPath: 'tsconfig.json',
                 entryModule: 'app.module#AppModule',
                 sourceMap: true,
-            })
+            }),
+            new MiniCssExtractPlugin({
+                filename: '[name].css',
+                chunkFilename: '[id].css',
+            }),
         ],
 
         entry: {
@@ -39,7 +44,8 @@ const commonConfig = merge([
         output: {
             path: path.resolve(__dirname, 'dist'),
             publicPath: '/',
-            filename: '[name].[hash].js'
+            filename: '[name].[hash].js',
+            chunkFilename: '[id].chunk.js'
         },
 
         resolve: {
@@ -52,19 +58,21 @@ const commonConfig = merge([
 ]);
 
 const developmentConfig = merge([
+    parts.clean(),
     parts.devServer({
         host: process.env.HOST,
         port: process.env.PORT,
     }),
-
+    parts.extractCSS(),
     parts.loadCSS(),
-    parts.loadImages(),
+    parts.loadImages()
 
 ]);
 
 const productionConfig = merge([
     parts.clean(),
     parts.extractCSS(),
+    parts.loadCSS(),
     parts.purifyCSS({
         paths: glob.sync(`${PATHS.app}/**/*.js`, { nodir: true }),
     }),
@@ -72,6 +80,7 @@ const productionConfig = merge([
         options: {
             limit: 15000,
             name: "[name].[ext]",
+            esModule: true
         },
     }),
 ]);

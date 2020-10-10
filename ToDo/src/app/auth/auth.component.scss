@@ -1,0 +1,16 @@
+form {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin-top: 20px;
+
+	.mat-form-field {
+		min-width: 250px;
+	}
+}
+
+.error{
+    background-color: cornsilk;
+    box-shadow: none;
+    text-align: center;
+}

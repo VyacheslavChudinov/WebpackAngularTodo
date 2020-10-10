@@ -1,0 +1,39 @@
+.mat-card {
+	margin: 10px 0;
+	background-color: #fffdfa;
+    
+    &.deadline-is-far {
+		background-color: rgba(120, 239, 116, 0.14);
+    }
+
+	&.deadline-is-near {
+		background-color: rgba(239, 116, 124, 0.21);
+    }
+    
+    &.deadline-has-come {
+		background-color: rgba(118, 110, 208, 0.46);
+    }
+
+	.mat-card-title-group {
+		display: block;
+
+		.mat-card-title {
+			display: flex;
+			justify-content: space-between;
+			flex-direction: row;
+		}
+
+		.mat-card-subtitle {
+			&.deadline {
+				display: flex;
+				justify-content: flex-end;
+			}
+		}
+	}
+
+	mat-spinner {
+		position: absolute;
+		left: 45%;
+		top: 30%;
+	}
+}
